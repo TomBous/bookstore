@@ -9,8 +9,8 @@ const user_service = require('./user'),
     genres_service = require('./genres'),
     mailer_service = require('./mailer'),
     bcrypt_service = require('./bcrypt'),
-    jwt_service = require('./jwt')
-    livre_service=require('./livre')
+    jwt_service = require('./jwt'),
+    livre_service=require('./livre');
 
 // create a services object for map all the services
 const services = {
