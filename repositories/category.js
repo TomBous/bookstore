@@ -1,12 +1,12 @@
 module.exports = (models) => {
     const category_repository = {
-        getAll: async (data) => {
-            return models.cat.query("select * from Categories");
+        getAll: async () => {
+            return models.category.query("select * from Categories");
         },
         getById: async (id) => {
-            return models.cat.query("select * from Categories where id = ? LIMIT 1", [id]);
+            return models.category.query("select * from Categories where id = ? LIMIT 1", [id]);
         }
     }
     
-    return cat_repository;
+    return category_repository;
 }
