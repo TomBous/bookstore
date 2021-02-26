@@ -4,12 +4,12 @@ const services = require('../services/index');
 
 // controllers
 const user_controller = require('./user');
-genres_constroller = require('./genres')
+genres_controller = require('./genres')
 
 // create a controllers object for map all the controllers
 const controllers = {
     user: user_controller(services),
-    genre: genres_constroller(services)
+    genre: genres_controller(services)
 }
 
 // export our controllers object
