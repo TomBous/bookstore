@@ -4,31 +4,30 @@ module.exports = (services) => {
             let result = await services.book.getAll();
             res.send(result);
         },
-        subtractedBookQuantity: async (req, res) => {
-            const { id } = req.params;
-            const Users_id = req.body.user;
-            const Books_id = req.params.id;
-    
-    
-            const bookQuatity = await services.book.bookQuantity(id);
-    
-            const reservation = async () => {
-                const sousTred = await services.book.subtractedBookQuantity(id)
-                const createReservation = await services.book.createRents(Users_id, Books_id);
-                res.status(201).send(createReservation)
-            }
-    
-            if (bookQuatity > 0) {
-                reservation()
+        getByFilter: async (req, res) => {
+            const query = req.query
+            const dataArray = [] // Generation array en fonction du nombre de queries
+            if (query.title) dataArray.push(query.title)
+            if (query.genre) dataArray.push(query.genre)
+            if (query.category) dataArray.push(query.category)
+            if (query.author) dataArray.push(query.author)
+            console.log('data : ', dataArray)
+            const queryConditionsArray = [] // Generation d'un array pour la fin de la requête SQL preparée
+            if (query.title) queryConditionsArray.push(`title = ?`)
+            if (query.genre) queryConditionsArray.push(`Genres.name = ?`)
+            if (query.category) queryConditionsArray.push(`Categories.name = ?`)
+            if (query.author) queryConditionsArray.push(`author = ?`)
+            console.log('querybuilder : ', queryConditionsArray)
+
+            if (dataArray.length < 1) { // Si aucun paramètre n'a été fourni
+                let result = await services.book.getAll();
+                res.send(result);
             } else {
-                res.status(201).send("Ce livre n'est malheureusement pas en stock mais vous pouvez l'ajouter dans votre liste des souhaits")
-    
-    
+                let result = await services.book.getByFilter(dataArray, queryConditionsArray);
+                res.send(result);
             }
-    
-    
-        }
-    
+            
+        },
     }
     
     return book_controller;
