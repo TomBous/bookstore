@@ -10,7 +10,8 @@ module.exports = (express, controllers) => {
         user_route(express, controllers),
         category_route(express, controllers),
         book_route(express, controllers),
-        genre_route(express, controllers)
+        genre_route(express, controllers),
+        // rents_route(express, controllers)
     ]
 
 

@@ -7,5 +7,8 @@ module.exports = (express, controllers) => {
     router.route('/books')
         .get( verifyToken ,controllers.book.getAll)
 
+        router.route('/rents/:id')
+        .post(verifyToken ,controllers.book.subtractedBookQuantity)
+
     return router;
 };
